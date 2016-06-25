@@ -1,0 +1,67 @@
+body, html{
+	height: 100%;
+	width: 100%;
+}
+
+body{
+	background-image: url('../images/background.png');
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-size: 100%;
+}
+
+.rps{
+	text-align: center;
+	font-size: 48px;
+	font-family: 'Oswald', sans-serif;
+	font-weight: bold;
+	display: inline;
+}
+
+.player1{
+	height: 235px;
+	width: 235px;
+	background-image: url('../images/player1.png');
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-size: 100%;
+}
+
+.player2{
+	height: 235px;
+	width: 235px;
+	background-image: url('../images/player2.png');
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-size: 100%;
+}
+
+.hands{
+	height: 235px;
+}
+
+.stats{
+	height: 80px;
+}
+
+.col-md-3{
+	padding: 0;
+}
+
+#p1stats, #p2stats{
+	padding-left: 10px;
+	height: 80px;
+	margin: 0;
+	width: 178px;
+	border: dashed 1px #8c8c8c;
+	color: #8c8c8c;
+	font-family: 'Oswald', sans-serif;
+}
+
+.p1, .p2{
+	padding-top:55px;
+	color: #8c8c8c;
+	font-family: 'Oswald', sans-serif;
+	font-size: 24px;
+}
+

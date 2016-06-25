@@ -7,12 +7,86 @@
 		<meta name="author" content="Emad Kheiralla">
 		<title>Roshambo</title>
 		<link rel="stylesheet" href="assets/css/reset.css" type="text/css">
+		<link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Oswald' type='text/css'>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<link rel="stylesheet" href="assets/css/style.css" type="text/css" >
+
 </head>
 <body>
 
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+		    <a class="navbar-brand" href="#">Roshambo</a>
+		    <form id="playerSubmit" class="navbar-form navbar-left">
+		        <div class="form-group">
+		        	<input type="text" class="form-control username" placeholder="Username">
+		        	<button type="submit" class="btn btn-default submit">Log In</button>
+		        </div>
+		    </form>
+	    </div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+	  	<div class="col-md-3 col-md-offset-2 p1">
+	  		<p>Player 1: </p><span id="p1"></span>
+	  	</div>
+	  	
+	  	<div class="col-md-3 rps">
+	  		
+	  	</div>
+	  	
+	  	<div class="col-md-3 p2">
+	  		<p>Player 2: <span id="p2"></span></p>
+	  	</div>
+	</div>
+
+	<div class="row hands">
+	  	<div class="col-md-3 col-md-offset-2 player1">
+	  		
+	  	</div>
+	  	
+	  	<div class="col-md-3 rps">
+	  		<p id="rock">Rock</p>
+	  		<p id="paper">Paper</p>
+	  		<p id="scissors">Scissors</p>
+	  	</div>
+
+	  	<div class="col-md-3 player2">
+	  		
+	  	</div>
+	</div>
+
+	<div class="row stats">
+	  	<div class="col-md-3 col-md-offset-2">
+	  		<div id="p1stats">
+		  		<p>Wins: <span id="p1wins"></span></p>
+		  		<p>Losses: <span id="p1losses"></span></p>
+		  		<p>Ties: <span id="p1ties"></span></p>
+		  	</div>
+	  	</div>
+	  	
+	  	<div class="col-md-3">
+	  		
+	  	</div>
+	  	<div class="col-md-3">
+	  		<div id="p2stats">
+		  		<p>Wins: <span id="p2wins"></span></p>
+		  		<p>Losses: <span id="p2losses"></span></p>
+		  		<p>Ties: <span id="p2ties"></span></p>
+		  	</div>
+	  	</div>
+	</div>
+</div>
+
+
+
 <!-- Latest compiled and minified CSS & JS -->
 <script src="https://code.jquery.com/jquery.js"></script>
+
+<!-- Latest compiled and minified Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <!-- LINK TO FIREBASE GOES HERE -->
 <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>

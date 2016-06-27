@@ -7,7 +7,7 @@ body{
 	background-image: url('../images/background.png');
 	background-repeat: no-repeat;
 	background-attachment: scroll;
-	background-size: 100%;
+	background-size: cover;
 }
 
 .rps{
@@ -48,19 +48,36 @@ body{
 	padding: 0;
 }
 
-#p1stats, #p2stats{
+#p1stats{
 	padding-left: 10px;
 	height: 80px;
 	margin: 0;
 	width: 178px;
-	border: dashed 1px #8c8c8c;
-	color: #8c8c8c;
+	border: solid 1px #0a3cf0;
+	color: #0a3cf0;
 	font-family: 'Oswald', sans-serif;
 }
 
-.p1, .p2{
+#p2stats{
+	padding-left: 10px;
+	height: 80px;
+	margin: 0;
+	width: 178px;
+	border: solid 1px #f02d0a;
+	color: #f02d0a;
+	font-family: 'Oswald', sans-serif;
+}
+
+.p1{
 	padding-top:55px;
-	color: #8c8c8c;
+	color: #0a3cf0;
+	font-family: 'Oswald', sans-serif;
+	font-size: 24px;
+}
+
+.p2{
+	padding-top:55px;
+	color: #f02d0a;
 	font-family: 'Oswald', sans-serif;
 	font-size: 24px;
 }

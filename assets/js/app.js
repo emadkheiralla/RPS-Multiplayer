@@ -122,7 +122,7 @@ function fight(){
 	$('#p1data').text("Choose your weapon!");
 	$('#p2data').text("Choose your weapon!");
 
-	if(Player1.CurrentPlayer == true){
+	if(Player1.CurrentPlayer == true && Player2.CurrentPlayer == false){
 		$('#p2data').append("<br>Waiting for player 1 to choose weapon");
 		$('.weapon').on('click', function () {
 			if($(this).attr('id')  == 'rock'){
@@ -140,7 +140,8 @@ function fight(){
 		dbRef.update({ Player1: {CurrentPlayer: false}});
 		Player2.CurrentPlayer == true;
 		dbRef.update({ Player2: {CurrentPlayer: true}});
-	}else if (Player2.CurrentPlayer == true){
+		
+	}else if (Player1.CurrentPlayer == false && Player2.CurrentPlayer == true){
 		$('#p1data').append("<br>Waiting for player 2 to choose weapon");
 		$('.weapon').on('click', function () {
 			if($(this).attr('id')  == 'rock'){

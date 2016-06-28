@@ -119,16 +119,48 @@ function clearForm() {
 function fight(){
 	$('body').css("background-image", "url(assets/images/background2.jpg)");
 	$('.rps').css("color", "#8c8c8c");
-	if(!p1pick){
-		$('#p1data').text("Choose your weapon!");
-		p1pick= true;
-	}
-	if(!p2pick){
-		$('#p2data').text("Choose your weapon!");
-		p1pick = true;
-	}
-	return false;
+	$('#p1data').text("Choose your weapon!");
+	$('#p2data').text("Choose your weapon!");
 
+	if(Player1.CurrentPlayer == true){
+		$('#p2data').append("<br>Waiting for player 1 to choose weapon");
+		$('.weapon').on('click', function () {
+			if($(this).attr('id')  == 'rock'){
+				Player1.Pick = "Rock"
+				$('.player1').css("background-image", "url(assets/images/rock.png)");
+			}else if($(this).attr('id')  == 'paper'){
+				Player1.Pick = "Paper"
+				$('.player1').css("background-image", "url(assets/images/paper.png)");
+			}else if($(this).attr('id')  == 'scissors'){
+				Player1.Pick = "Scissors"
+				$('.player1').css("background-image", "url(assets/images/scissors.png)");
+			}
+		});
+		Player1.CurrentPlayer == false;
+		dbRef.update({ Player1: {CurrentPlayer: false}});
+		Player2.CurrentPlayer == true;
+		dbRef.update({ Player2: {CurrentPlayer: true}});
+	}else if (Player2.CurrentPlayer == true){
+		$('#p1data').append("<br>Waiting for player 2 to choose weapon");
+		$('.weapon').on('click', function () {
+			if($(this).attr('id')  == 'rock'){
+				Player2.Pick = "Rock"
+				$('.player2').css("background-image", "url(assets/images/rock.png)");
+			}else if($(this).attr('id')  == 'paper'){
+				Player2.Pick = "Paper"
+				$('.player2').css("background-image", "url(assets/images/paper.png)");
+			}else if($(this).attr('id')  == 'scissors'){
+				Player2.Pick = "Scissors"
+				$('.player2').css("background-image", "url(assets/images/scissors.png)");
+			}
+		});
+		Player1.CurrentPlayer == true;
+		dbRef.update({ Player1: {CurrentPlayer: true}});
+		Player2.CurrentPlayer == false;
+		dbRef.update({ Player2: {CurrentPlayer: false}});
+	}
+
+	
 }
 
 
@@ -147,20 +179,16 @@ var users = 0;
 
 dbRef.child("Users").set(users);
 
+var p1pick = "";
+var p1wins = 0;
+var p1losses = 0;
+var p1ties = 0;
+var p2pick = "";
+var p2wins = 0;
+var p2losses = 0;
+var p2ties = 0;
 
-$('#playerSubmit').on('click', function () {
-	var name = $('.username').val();
-	
-	var p1pick = "";
-	var p1wins = 0;
-	var p1losses = 0;
-	var p1ties = 0;
-	var p2pick = "";
-	var p2wins = 0;
-	var p2losses = 0;
-	var p2ties = 0;
-
-	var Player1 = {
+var Player1 = {
 		Name: "",
 		Pick: p1pick,
 		Registered: false,
@@ -168,9 +196,9 @@ $('#playerSubmit').on('click', function () {
 		Wins: p1wins,
 		Losses: p1losses,
 		Ties: p1ties
-	};
+};
 
-	var Player2 = {
+var Player2 = {
 		Name: "",
 		Pick: p2pick,
 		Registered: false,
@@ -178,25 +206,35 @@ $('#playerSubmit').on('click', function () {
 		Wins: p2wins,
 		Losses: p2losses,
 		Ties: p2ties
-	};
+};
 
-    if(dbRef.Users.val() == 0){
+
+$('#playerSubmit').on('click', function () {
+	var name = $('.username').val();
+
+    if(users == 0){
 		Player1.Registered = true;
 		Player1.CurrentPlayer = true;
 		Player1.Name = name;		
 		dbRef.child("Player1").set(Player1);		
 		clearForm();
-		dbRef.Users.val()++;
-	}else if(dbRef.Users.val() == 1){
+		users++;
+		dbRef.update({ Users: 1});
+		Player1.CurrentPlayer = false;
+		dbRef.update({ Player1: {CurrentPlayer: false}});
+	}else if(users == 1){
 		Player2.Registered = true;
 		Player2.CurrentPlayer = true;
 		Player2.Name = name;		
 		dbRef.child("Player2").set(Player2);
 		clearForm();
-		dbRef.Users.val()++;
-		fight();		
-	}else if(dbRef.Users.val() >=2){
-		console.log("There are already 2 players registered!");		
+		users++;
+		dbRef.update({ Users: 2});
+		Player2.CurrentPlayer = false;
+		dbRef.update({ Player2: {CurrentPlayer: false}});
+		Player1.CurrentPlayer = true;
+		dbRef.update({ Player1: {CurrentPlayer: true}});
+				
 	}
 	return false;
 });
@@ -220,7 +258,7 @@ dbRef.on('value', function (snapshot) {
 		$('#p2wins').html(snapshot.val().Player2.Wins);
 		$('#p2losses').html(snapshot.val().Player2.Losses);
 		$('#p2ties').html(snapshot.val().Player2.Ties);
-		
+		fight();
 	}	
 }, function (error) {
 	console.error(error);

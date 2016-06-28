@@ -135,18 +135,21 @@ firebase.initializeApp(config);
 
 var dbRef = firebase.database().ref();
 var users = 0;
-var wins = 0;
-var losses = 0;
-var ties = 0;
+var p1wins = 0;
+var p1losses = 0;
+var p1ties = 0;
+var p2wins = 0;
+var p2losses = 0;
+var p2ties = 0;
 
 var Player1 = {
 	Name: "",
 	Pick: "",
 	Registered: false,
 	CurrentPlayer: false,
-	Wins: wins,
-	Losses: losses,
-	Ties: ties
+	Wins: p1wins,
+	Losses: p1losses,
+	Ties: p1ties
 };
 
 var Player2 = {
@@ -154,9 +157,9 @@ var Player2 = {
 	Pick: "",
 	Registered: false,
 	CurrentPlayer: false,
-	Wins: wins,
-	Losses: losses,
-	Ties: ties
+	Wins: p2wins,
+	Losses: p2losses,
+	Ties: p2ties
 };
 
 //var playerRef = new Firebase('https://rps-multiplayer-5fd10.firebaseio.com');
@@ -168,29 +171,32 @@ $('#playerSubmit').on('click', function () {
 		Player1.Registered = true;
 		Player1.CurrentPlayer = true;
 		Player1.Name = name;
-		dbRef.push(Player1);		
 		users++;
+		dbRef.child("Player1").set(Player1);		
 		clearForm();
 	}else if(users == 1){
 		Player2.Registered = true;
 		Player2.CurrentPlayer = true;
 		Player2.Name = name;
-		dbRef.push(Player2);
 		users++;
+		dbRef.child("Player2").set(Player2);
 		clearForm();
+		fight();
 	}else if(users >=2){
-		console.log("There are already 2 players registered!");
+		console.log("There are already 2 players registered!");		
 	}
 	return false;
 });
 
-dbRef.ref().on('child_added', function (snapshot) {
+dbRef.on('value', function (snapshot) {
 	console.log(snapshot.val());
-	
-		//$('#p1').html(snapshot.val().Player1.Name);
-	
-		//$('#p2').html(snapshot.val().Player2.Name);
-	
+	if(users == 0){
+		console.log("No Users Online");
+	}else if(users == 1){
+		$('#p1').html(snapshot.val().Player1.Name);
+	}else if(users == 2){
+		$('#p2').html(snapshot.val().Player2.Name);
+	}	
 }, function (error) {
 	console.error(error);
 });

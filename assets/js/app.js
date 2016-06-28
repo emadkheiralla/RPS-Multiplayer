@@ -180,22 +180,22 @@ $('#playerSubmit').on('click', function () {
 		Ties: p2ties
 	};
 
-    if(users == 0){
+    if(dbRef.Users.val() == 0){
 		Player1.Registered = true;
 		Player1.CurrentPlayer = true;
 		Player1.Name = name;		
 		dbRef.child("Player1").set(Player1);		
 		clearForm();
-		users++;
-	}else if(users == 1){
+		dbRef.Users.val()++;
+	}else if(dbRef.Users.val() == 1){
 		Player2.Registered = true;
 		Player2.CurrentPlayer = true;
 		Player2.Name = name;		
 		dbRef.child("Player2").set(Player2);
 		clearForm();
-		users++;
+		dbRef.Users.val()++;
 		fight();		
-	}else if(users >=2){
+	}else if(dbRef.Users.val() >=2){
 		console.log("There are already 2 players registered!");		
 	}
 	return false;
@@ -221,8 +221,7 @@ dbRef.on('value', function (snapshot) {
 		$('#p2losses').html(snapshot.val().Player2.Losses);
 		$('#p2ties').html(snapshot.val().Player2.Ties);
 		
-	}
-	return false;	
+	}	
 }, function (error) {
 	console.error(error);
 });
